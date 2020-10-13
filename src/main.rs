@@ -1,6 +1,6 @@
 mod fonts;
-use std::path::Path;
 
 fn main() {
-    fonts::get(Path::new("./fonts"));
+	let fonts = fonts::get("./fonts");
+	println!("Result {:?}", fonts);
 }
