@@ -3,11 +3,18 @@ use std::io;
 use std::path::Path;
 
 pub fn get(fonts_dir: &Path) {
-    visit_fonts_path(fonts_dir, &log_files);
+    let fonts = visit_fonts_path(fonts_dir, &log_files);
+    match fonts {
+        Ok(v) => v,
+        Err(e) => println!("error on listing: {:?}", e)
+    }
 }
 
 fn log_files(dir: &DirEntry) {
-    println!("{:?}", dir.path());
+    let mut font_list = Vec::new();
+    font_list.push(dir.path().as_os_str().to_string());
+    return font_list:Vec<str>;
+    // println!("{:?}", dir.path().as_os_str());
 }
 
 fn visit_fonts_path(dir: &Path, cb: &dyn Fn(&DirEntry)) -> io::Result<()> {
