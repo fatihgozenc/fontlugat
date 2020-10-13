@@ -1,29 +1,38 @@
 <!DOCTYPE html>
 <html lang='en'>
-
-<head>
-	<meta charset='UTF-8'>
-	<meta name='viewport' content='width=device-width, initial-scale=1.0'>
-	<title>Fontlugat</title>
-	<style>
-*{
-	box-sizing: border-box;
-}
+	<head>
+		<meta charset='UTF-8'>
+		<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+		<title>Fontlugat</title>
+		<style>
+		*{
+			box-sizing: border-box;
+		}
 		body {
+			font-family: sans-serif;
 			margin: 2%;
 		}
 		body[theme='dark']{
-			background: #222;
-			color: #777;
+			background: #111;
+			color: #eee;
+		}
+		body[theme='dark'] input{
+			background: #111;
+			color: #eee;
 		}
 		header{
 			display: flex;
+			text-transform: uppercase;
+			letter-spacing: 1px;
 			justify-content: space-between;
+		}
+		.fontholder label {
+			display: block;
+			padding-top: 1rem;
 		}
 		.fontholder {
 			width: 100%;
 			min-height: 100px;
-			margin-top: 1.6rem;
 		}
 		.fontholder input[type='range'] {
 			width: 50%;
@@ -34,6 +43,7 @@
 			font-family: inherit;
 			font-size: 40px;
 			height: 100px;
+			border:none;
 		}
 		/* FONTS-START */
 		@font-face {
@@ -41,29 +51,35 @@
 			src: url('./fonts/gotham/Gotham-Thin.otf');
 		}
 		/* FONTS-END */
-	</style>
-</head>
+		</style>
+	</head>
 
-<body>
-	<header>
-		<span>FontLugat</span>
-		<div class="switcher">
-			<label for='switcher'>Dark</label>
-			<input type='checkbox' name='switcher'>
+	<body theme="dark">
+		<header>
+			<span>FontLugat</span>
+			<div class="switcher">
+				<label for='switcher'>Dark</label>
+				<input checked onchange="changeTheme()" type='checkbox' name='switcher'>
+			</div>
+		</header>
+		<div class='fontholder' >
+			<label for='Gotham-Thin'>Gotham-Thin</label>
+			<input style='font-family: Gotham-Thin' type='text' name='Gotham-Thin' value='AaBbCc'>
+			<input onchange='changeSize(this)' type='range' min='4' max='80' value='40'>
+			<span class='size'>40px</span>
 		</div>
-	</header>
-	<div class='fontholder' style='font-family: Gotham-Thin'>
-		<label for='Gotham-Thin'>Gotham-Thin</label>
-		<input type='text' name='Gotham-Thin' placeholder='AaBbCc'>
-		<input onchange='changeSize(this)' type='range' min='4' max='80' value='40'>
-		<span class='size'>40px</span>
-	</div>
-	<script>
-		function changeSize(e) {
-			e.previousElementSibling.style.fontSize = e.value + 'px'
-			e.nextElementSibling.innerText = e.value + 'px'
-		}
-	</script>
-</body>
+		<script>
+			function changeTheme(){
+				let theme = document.body.getAttribute('theme')
+				theme == 'dark' 
+					? document.body.setAttribute('theme', 'light')
+					: document.body.setAttribute('theme', 'dark')
+			}
+			function changeSize(e) {
+				e.previousElementSibling.style.fontSize = e.value + 'px'
+				e.nextElementSibling.innerText = e.value + 'px'
+			}
+		</script>
+	</body>
 
 </html>
