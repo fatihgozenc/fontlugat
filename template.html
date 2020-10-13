@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+	<meta charset='UTF-8'>
+	<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+	<title>Fonts</title>
+	<style>
+		body {
+			margin: 0;
+		}
+
+		.fontholder {
+			width: 100vw;
+			min-height: 100px;
+			margin-top: 2rem;
+		}
+
+		.fontholder input {
+			height: 100%;
+			font-family: inherit;
+			font-size: 40px;
+		}
+
+		@font-face {
+			font-family: Gotham-Thin;
+			src: url('./fonts/gotham/Gotham-Thin.otf');
+		}
+	</style>
+</head>
+
+<body>
+	<div class='fontholder' style='font-family: Gotham-Thin'>
+		<label for='Gotham-Thin'>Gotham-Thin</label>
+		<input class='fontholder' type='text' name='Gotham-Thin' placeholder='AaBbCc'>
+		<input onchange='changeSize(this)' type='range' min='9' max='80' value='40'>
+		<span class='size'>40px</span>
+	</div>
+	<script>
+		function changeSize(e) {
+			e.previousElementSibling.style.fontSize = e.value + 'px'
+			e.nextElementSibling.innerText = e.value + 'px'
+		}
+	</script>
+</body>
+
+</html>
