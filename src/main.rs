@@ -7,5 +7,5 @@ fn main() {
 			Ok(v) => v,
 			Err(e) => println!("HTML error! : {:?}", e),
 	}
-	open::that("./fonts.html");
+	//open::that("./fonts.html");
 }

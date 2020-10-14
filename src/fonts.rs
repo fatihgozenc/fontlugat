@@ -28,12 +28,14 @@ pub fn get(fonts_path:&str) -> Vec<String> {
 pub fn generate(fonts:Vec<String>) -> std::io::Result<()> {
 
 	for font in fonts {
+        let css = format!("@font-face{{font-family: {};src:url({});}}", font, font.to_string());
 		println!("Found: {:?}", font);
+		println!("CSS: {:?}", css);
 	}
 
 	let template = "<!DOCTYPE html><html lang='en'><head><meta charset='UTF-8'><meta name='viewport' content='width=device-width, initial-scale=1.0'><title>Fonts</title></head><body></body></html>";
 
-	fs::write("fonts.html", template)?;
+	//fs::write("fonts.html", template)?;
 
 	Ok(())
 }
