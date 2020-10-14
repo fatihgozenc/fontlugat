@@ -1,6 +1,6 @@
-use walkdir::WalkDir;
-use std::ffi::OsStr;
 use std::fs;
+use std::ffi::OsStr;
+use walkdir::WalkDir;
 
 pub fn get(fonts_path:&str) -> Vec<String> {
 
@@ -26,14 +26,16 @@ pub fn get(fonts_path:&str) -> Vec<String> {
 }
 
 pub fn generate(fonts:Vec<String>) -> std::io::Result<()> {
-
 	for font in fonts {
-        let css = format!("@font-face{{font-family: {};src:url({});}}", font, font.to_string());
-		println!("Found: {:?}", font);
-		println!("CSS: {:?}", css);
+		// SPLITTING FROM FOLDER PATH 
+		// THEN SPLITTING FROM FONT FORMAT TO GET NAME STR
+		let	font_name = font.split("/").last().unwrap().split(".").next().unwrap();
+    let font_css = format!("@font-face{{font-family:{};src:url({});}}", font_name, font);
+		println!("Name: {:?}", font_name);
+		println!("CSS: {:?}", font_css);
 	}
 
-	let template = "<!DOCTYPE html><html lang='en'><head><meta charset='UTF-8'><meta name='viewport' content='width=device-width, initial-scale=1.0'><title>Fonts</title></head><body></body></html>";
+	let html_head = "<!DOCTYPE html><html lang='en'><head><meta charset='UTF-8'><meta name='viewport' content='width=device-width, initial-scale=1.0'><title>Fonts</title></head><body></body></html>";
 
 	//fs::write("fonts.html", template)?;
 
