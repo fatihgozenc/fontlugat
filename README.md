@@ -1,13 +1,13 @@
 # Fontlugat
-
-## Simple Font Explorer
-Fontlugat is a lightweight font displayer that lists all your fonts from selected folder and shows them in your browser. No font permissions or font activations like other libraries. Just for showing fonts and testing them with different text content.
+![Fontlugat Logo](/logo.png)
+## A Simple Font Explorer
+Fontlugat is a lightweight font explorer that collects all your fonts from selected folder and shows them in your browser. No font permissions or font activations like other programs. Just for showing fonts and testing them with different text content and font sizes.
 
 ### Supported Formats
-It supports all well-known font formats except .pfb, .pfm and .suitcase.
+It supports `.otf`, `.ttf`, `.woff`, `.woff2` and `.eot`.
 
 ### Dependencies
-It only uses standard Rust library at the moment. There are no planned dependencies at the moment.
+It uses [`walkdir`](https://docs.rs/walkdir/), [`open`](https://docs.rs/open/) and standard Rust library at the moment. There are no more planned dependencies at the moment.
 
-#### Thank you
-For your interest. It's still in development and not ready to use. First version will be released soon.
+### Thank you
+For your interest. It's still in development but ready to use from terminal on Windows, MacOSX and Linux.

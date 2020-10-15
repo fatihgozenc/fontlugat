@@ -11,7 +11,7 @@ fn main() {
                 Ok(v) => v,
                 Err(e) => println!("HTML compilation error!: {:?}", e),
             }
-            match open::that("./fonts.html"){
+            match open::that(if cfg!(windows){".\\fonts.html"} else {"./fonts.html"}){
                 Ok(v) => println!("{:?}. Look at your browser.", v),
                 Err(e) => println!("Browser error!: {:?}", e)
             }
