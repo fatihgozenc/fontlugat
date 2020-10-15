@@ -1,21 +1,19 @@
 mod fonts;
-use std::io;
+use std::env;
 
 fn main() {
-    println!("Enter font folder path: ");
-    let mut input = String::new();
-    match io::stdin().read_line(&mut input){
-        Ok(_n) => {
-            let fonts = fonts::get(&input.to_string().trim_end());
+    match env::current_dir(){
+        Ok(current_path) => {
+            let fonts = fonts::get(&current_path.display().to_string());
             match fonts::generate(fonts){
-                Ok(v) => v,
-                Err(e) => println!("HTML compilation error!: {:?}", e),
+                Ok(res) => res,
+                Err(err) => println!("HTML compilation error!: {:?}", err),
             }
-            match open::that(if cfg!(windows){".\\fonts.html"} else {"./fonts.html"}){
-                Ok(v) => println!("{:?}. Look at your browser.", v),
-                Err(e) => println!("Browser error!: {:?}", e)
+            match open::that(if cfg!(windows){".\\fontlugat.html"} else {"./fontlugat.html"}){
+                Ok(_res) => println!("Successfully initialized!"),
+                Err(err) => println!("Browser error!: {:?}", err)
             }
         }
-        Err(error) => println!("{:?} has err: {:?}", input, error)
+        Err(error) => println!("has err: {:?}", error)
     }
 }
