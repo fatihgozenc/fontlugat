@@ -1,4 +1,3 @@
-# Fontlugat
 ![Fontlugat Logo](/logo.png)
 ## A Simple Font Explorer
 Fontlugat is a lightweight font explorer that collects all your fonts from selected folder and shows them in your browser. No font permissions or font activations like other programs. Just for showing fonts and testing them with different text content and font sizes.
