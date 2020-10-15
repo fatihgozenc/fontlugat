@@ -18,7 +18,12 @@ pub fn get(fonts_path:&str) -> Vec<String> {
         };
 
         if !entry.path().is_dir() && font_format != "Not supported" {
-            list.push(entry.path().display().to_string());
+            let font_file = entry.path().display().to_string();
+            if cfg!(windows){
+                list.push(font_file.replace("\\", "/"));
+            } else {
+                list.push(font_file);
+            }
         }
     }
 

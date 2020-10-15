@@ -9,11 +9,11 @@ fn main() {
             let fonts = fonts::get(&input.to_string().trim_end());
             match fonts::generate(fonts){
                 Ok(v) => v,
-                Err(e) => println!("HTML error! : {:?}", e),
+                Err(e) => println!("HTML compilation error!: {:?}", e),
             }
             match open::that("./fonts.html"){
                 Ok(v) => println!("{:?}. Look at your browser.", v),
-                Err(e) => println!("{:?}", e)
+                Err(e) => println!("Browser error!: {:?}", e)
             }
         }
         Err(error) => println!("{:?} has err: {:?}", input, error)
