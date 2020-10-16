@@ -3,7 +3,7 @@
 Fontlugat is a lightweight font explorer that collects all your fonts from selected folder and shows them in your browser. No font permissions or font activations like other programs. Just for showing fonts and testing them with different text content and font sizes.
 
 ### Usage
-I haven't created an installer yet but you can download the latest release of executable from [here](https://github.com/fatihgozenc/fontlugat/releases/tag/0.1.0) then run the program in your custom folder of fonts. It will generate `fontlugat.html` in the same folder for you and open it in your default browser.
+I haven't created an installer yet but you can download the latest release of executable from [here](https://github.com/fatihgozenc/fontlugat/releases/tag/0.1.0) then run the program in your custom folder of fonts. It will generate `fontlugat.html` in the same folder for you and open it in your default browser. In MacOSX or Linux you need to place the downloaded executable in your font folder then run it from terminal. For example `cd /Users/username/Documents/fonts` to navigate then run `./fontlugat`.
 
 ### Supported Formats
 It supports `.otf`, `.ttf`, `.woff`, `.woff2` and `.eot`.

@@ -37,9 +37,9 @@ pub fn generate(fonts:Vec<String>) -> std::io::Result<()> {
     for font in fonts {
         // SPLITTING FROM FOLDER PATH 
         // THEN SPLITTING FROM FONT FORMAT TO GET NAME STR
-        let font_name = font.split("/").last().unwrap().split(".").next().unwrap().to_string();
-        let font_style = format!("@font-face{{font-family:{};src:url({});}}", font_name, font);
-        let font_wrapper = format!("<div class='fontholder'><label>{:?}</label><input style='font-family:{:?}' type='text' value='The quick brown fox jumps over the lazy dog.'><input onchange='changeSize(this)' type='range' min='4' max='80' value='40'><span class='size'>40px / 30pt / 2.5rem</span></div>", font_name, font_name);
+        let font_name = font.split("/").last().unwrap().split(".").next().unwrap();
+        let font_style = format!("@font-face{{font-family:{};src:url('{}');}}", font_name, font);
+        let font_wrapper = format!(r#"<div class='fontholder'><label>{}</label><input style='font-family:{}' type='text' value='The quick brown fox jumps over the lazy dog.'><input onchange='changeSize(this)' type='range' min='4' max='80' value='40'><span class='size'>40px / 30pt / 2.5rem</span></div>"#, font_name, font_name);
         font_styles.push_str(&font_style);
         font_wrappers.push_str(&font_wrapper);
     }

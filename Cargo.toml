@@ -3,6 +3,12 @@ name = "fontlugat"
 version = "0.1.0"
 authors = ["Fatih Gozenc <fatihgozenc@gmail.com>"]
 edition = "2018"
+description = "A simple font explorer written in Rust."
+repository = "https://github.com/fatihgozenc/fontlugat"
+
+[package.metadata.bundle]
+name = "Fontlugat"
+osx_minimum_system_version = "env=MACOSX_DEPLOYMENT_TARGET=10.11"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
