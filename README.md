@@ -12,4 +12,4 @@ It supports `.otf`, `.ttf`, `.woff`, `.woff2` and `.eot`.
 It uses [`walkdir`](https://docs.rs/walkdir/), [`open`](https://docs.rs/open/) and standard Rust library at the moment. There are no more planned dependencies at the moment.
 
 ### Thank you
-For your interest. I am still developing it but you can download and use it on Windows, MacOSX and Linux.
+For your interest. I am still developing it but you can download and use it on Windows for now. Linux and MacOSX versions soon to be released.
