@@ -1,3 +1,4 @@
+mod Fontlugat;
 mod fontlugat;
 use std::env;
 
