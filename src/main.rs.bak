@@ -1,0 +1,109 @@
+mod gui;
+mod lib;
+use fontdue::{layout, Font};
+use layout::{CoordinateSystem, Layout, LayoutSettings, TextStyle};
+use std::convert::TryInto;
+use std::fs::File;
+use std::io;
+use std::io::prelude::*;
+
+fn demo<T>(v: Vec<T>) -> [T; 32]
+where
+    T: Copy,
+{
+    let slice = v.as_slice();
+    let array: [T; 32] = match slice.try_into() {
+        Ok(ba) => ba,
+        Err(_) => panic!("Expected a Vec of length {} but it was {}", 32, v.len()),
+    };
+    array
+}
+
+// fn main() {
+//     let mut f = File::open("./fonts/caroline/Caroline.otf").expect("File not found");
+//     let mut buffer = vec![];
+//     let read = f.read_to_end(&mut buffer).expect("Buffer cant read.");
+//     let mut test = Text::load_font(&mut self, &demo(buffer)).expect("Font not found");
+// }
+
+// Rasterizing
+// let font = include_bytes!("../fonts/caroline/Caroline.otf") as &[u8];
+// // Parse it into the font type.
+// let font = fontdue::Font::from_bytes(font, fontdue::FontSettings::default()).unwrap();
+// // Rasterize and get the layout metrics for the letter 'g' at 17px.
+// let (metrics, bitmap) = font.rasterize('g', 17.0);
+
+// Scratch pad for glyphs: ⅞ g
+const CHARACTER: char = 'g';
+const SIZE: f32 = 12.0;
+
+fn main() {
+    // Read the font data.
+    let settings = fontdue::FontSettings {
+        scale: SIZE,
+        ..fontdue::FontSettings::default()
+    };
+    let font = fontdue::Font::from_bytes(include_bytes!("../fonts/caroline/Caroline.otf") as &[u8])
+        .unwrap();
+
+    // println!("Normal:");
+    // let (metrics, bitmap) = font.rasterize(CHARACTER, SIZE);
+    // for y in 0..metrics.height {
+    //     for x in 0..metrics.width {
+    //         let char_s = bitmap[x + y * metrics.width];
+    //         print!("\x1B[48;2;{};{};{}m   ", char_s, char_s, char_s);
+    //     }
+    //     println!("\x1B[0m");
+    // }
+    println!("\nSubpixel:");
+    let (metrics, bitmap) = font.rasterize(CHARACTER, SIZE);
+    for y in 0..metrics.height + 1 {
+        for x in (0..metrics.width * 3).step_by(3) {
+            let char_r = bitmap[x + y * metrics.width * 3];
+            let char_g = bitmap[x + 1 + y * metrics.width * 3];
+            let char_b = bitmap[x + 2 + y * metrics.width * 3];
+            print!("\x1B[48;2;{};{};{}m   ", char_r, char_g, char_b);
+        }
+        println!("\x1B[0m");
+    }
+    // Parse it into the font type.
+    // let roboto_regular = Font::from_bytes(font, fontdue::FontSettings::default()).unwrap();
+    // // The list of fonts that will be used during layout.
+    // let fonts = &[roboto_regular];
+    // // Create a layout context. Laying out text needs some heap allocations; reusing this context
+    // // reduces the need to reallocate space. We inform layout of which way the Y axis points here.
+    // let mut layout = Layout::new(CoordinateSystem::PositiveYUp);
+    // // By default, layout is initialized with the default layout settings. This call is redundant, but
+    // // demonstrates setting the value with your custom settings.
+    // layout.reset(&LayoutSettings {
+    //     ..LayoutSettings::default()
+    // });
+    // // The text that will be laid out, its size, and the index of the font in the font list to use for
+    // // that section of text.
+    // layout.append(fonts, &TextStyle::new("Hello ", 35.0, 0));
+    // layout.append(fonts, &TextStyle::new("world!", 40.0, 0));
+    // // Prints the layout for "Hello world!"
+    // println!("{:?}", layout.glyphs());
+
+    // // If you wanted to attached metadata based on the TextStyle to the glyphs returned in the
+    // // glyphs() function, you can use the TextStyle::with_metadata function. In this example, the
+    // // Layout type is now parameterized with u8 (Layout<u8>). All styles need to share the same
+    // // metadata type.
+    // let mut layout = Layout::new(CoordinateSystem::PositiveYUp);
+    // layout.append(fonts, &TextStyle::with_user_data("Hello ", 35.0, 0, 10u8));
+    // layout.append(fonts, &TextStyle::with_user_data("world!", 40.0, 0, 20u8));
+    // println!("{:?}", layout.glyphs());
+    // // lib::run(" ./fonts");
+    // // gui::init("./src/templates/test.html");
+}
+
+// // let fonts = fonts::get(&dir);
+// // println!("{:?}", fonts);
+// // match fonts::generate_css(fonts){
+// //     Ok(res) => res,
+// //     Err(err) => println!("HTML compilation error!: {:?}", err),
+// // }
+// // match open::that(if cfg!(windows){".\\fontlugat.html"} else {"./fontlugat.html"}){
+// //     Ok(_res) => println!("Successfully initialized!"),
+// //     Err(err) => println!("Browser error!: {:?}", err)
+// // }
