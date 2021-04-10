@@ -1,9 +1,11 @@
 // use std::fs;
 use cell::Cell;
+use druid::Data;
 use ffi::OsString;
 use fs::{File, OpenOptions};
 use io::prelude::*;
 use path::{Path, PathBuf};
+use std::sync::Arc;
 use std::{cell, ffi, fs, io, path};
 use walkdir::WalkDir;
 
@@ -41,29 +43,15 @@ pub fn collect(dir: OsString) -> Vec<[String; 2]> {
     return fonts;
 }
 
-pub fn get_fonts(entry: &walkdir::DirEntry) -> [String; 2] {
-    let entry_path = Path::new(entry.path());
-    let skipped = ["".to_string(), "".to_string()];
-    return match entry_path.extension() {
-        Some(ext) => match ext.to_str() {
-            // Some("zip") => {
-            //     return 1;
-            // }
-            Some(ext) => match is_font(ext) {
-                true => {
-                    let font = Font::new(entry, ext);
-                    let component = Font::generate(font);
-                    return component;
-                }
-                false => skipped,
-            },
-            None => skipped,
-        },
-        None => skipped,
-    };
+
+#[derive(Clone, Data)]
+/// The main model for a todo list application.
+struct FontList {
+    items: Arc<Vec<Font>>,
 }
 
-#[derive(Debug)]
+#[derive(Clone, Data)]
+/// A single todo item.
 pub struct Font {
     id: usize,
     name: String,
